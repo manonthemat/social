@@ -2,26 +2,8 @@
 <html ng-app="app">
   <head>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.19/angular.js"></script>
-    <script>
-      var app = angular.module('app', []);
-      app.controller('PostsCtrl', ['$scope', '$http', function($scope, $http) {
-        $http.get('/api/posts').success(function(posts) {
-          $scope.posts = posts;
-        });
-        $scope.addPost = function() {
-          if ($scope.postBody) {
-            $http.post('/api/posts', {
-              username: 'MatzeOne',
-              body: $scope.postBody
-            }).success(function(post) {
-              $scope.posts.unshift(post);
-              $scope.postBody = null;
-            });
-          }
-        };
-      }]);
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.0/angular.js"></script>
+    <script src="app.js"></script>
   </head>
   <body>
     <main class="container" ng-controller="PostsCtrl">
