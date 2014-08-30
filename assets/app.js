@@ -1,11 +1,12 @@
 var app = angular.module('app', []);
-app.controller('PostsCtrl', ['$scope', '$http', function($scope, $http) {
-  $http.get('/api/posts').success(function(posts) {
+
+app.controller('PostsCtrl', ['$scope', 'PostsService', function($scope, PostsService) {
+  PostsService.fetch().success(function(posts) {
     $scope.posts = posts;
   });
   $scope.addPost = function() {
     if ($scope.postBody) {
-      $http.post('/api/posts', {
+      PostsService.post({
         username: 'MatzeOne',
         body: $scope.postBody
       }).success(function(post) {
@@ -16,3 +17,11 @@ app.controller('PostsCtrl', ['$scope', '$http', function($scope, $http) {
   };
 }]);
 
+app.service('PostsService', ['$http', function($http) {
+  this.fetch = function() {
+    return $http.get('/api/posts');
+  };
+  this.post = function(obj) {
+    return $http.post('/api/posts', obj);
+  };
+}]);
